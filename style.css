@@ -1369,163 +1369,25 @@ body {
 }
 
 /* ==========================================================
-   00:00 CELEBRATION MODAL WITH FLOATING CORNER BALLOONS
+   00:00 CELEBRATION MODAL
    ========================================================== */
 .celebration-modal {
-  max-width: 580px !important;
-  width: 94% !important;
-  border-radius: 36px !important;
-  overflow: visible !important;
-  background: transparent !important;
+  max-width: 520px !important;
+  width: 90% !important;
+  border-radius: 32px !important;
   border: none !important;
-  padding: 30px 20px !important;
-}
-
-.celebration-wrapper {
-  position: relative;
-  width: 100%;
-  overflow: visible;
-}
-
-/* Corner Balloon Clusters attached outside the 4 corners */
-.corner-balloon-group {
-  position: absolute;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  pointer-events: none;
-  filter: drop-shadow(0 8px 18px rgba(255, 71, 109, 0.4));
-}
-
-.corner-balloon-group.top-left {
-  top: -32px;
-  left: -24px;
-  animation: corner-sway-tl 3.2s infinite ease-in-out alternate;
-}
-
-.corner-balloon-group.top-right {
-  top: -32px;
-  right: -24px;
-  animation: corner-sway-tr 3.6s infinite ease-in-out alternate;
-}
-
-.corner-balloon-group.bottom-left {
-  bottom: -28px;
-  left: -22px;
-  animation: corner-sway-bl 3.8s infinite ease-in-out alternate;
-}
-
-.corner-balloon-group.bottom-right {
-  bottom: -28px;
-  right: -22px;
-  animation: corner-sway-br 3.4s infinite ease-in-out alternate;
-}
-
-.corner-balloon {
-  display: inline-block;
-  user-select: none;
-}
-
-.corner-balloon.b-main {
-  font-size: 3.4rem;
-  animation: balloon-bob 2.4s infinite ease-in-out alternate;
-}
-
-.corner-balloon.b-sub1 {
-  font-size: 2.3rem;
-  margin-left: -12px;
-  margin-top: -16px;
-  animation: balloon-bob 2.9s infinite ease-in-out alternate-reverse;
-}
-
-.corner-balloon.b-sub2 {
-  font-size: 2.7rem;
-  margin-left: -10px;
-  margin-top: 12px;
-  animation: balloon-bob 3.3s infinite ease-in-out alternate;
-}
-
-/* Perimeter floating balloons around edges */
-.perimeter-balloon {
-  position: absolute;
-  pointer-events: none;
-  user-select: none;
-  z-index: 9;
-  filter: drop-shadow(0 8px 16px rgba(255, 71, 109, 0.4));
-}
-
-.perimeter-balloon.p-left {
-  font-size: 3rem;
-  left: -32px;
-  top: 42%;
-  animation: perimeter-float-l 4s infinite ease-in-out;
-}
-
-.perimeter-balloon.p-right {
-  font-size: 3rem;
-  right: -32px;
-  top: 46%;
-  animation: perimeter-float-r 4.4s infinite ease-in-out;
-}
-
-.perimeter-balloon.p-top {
-  font-size: 2.8rem;
-  top: -38px;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: perimeter-float-t 3.6s infinite ease-in-out;
-}
-
-@keyframes corner-sway-tl {
-  0% { transform: translate(0, 0) rotate(-8deg); }
-  100% { transform: translate(-8px, -12px) rotate(4deg) scale(1.08); }
-}
-
-@keyframes corner-sway-tr {
-  0% { transform: translate(0, 0) rotate(8deg); }
-  100% { transform: translate(8px, -12px) rotate(-4deg) scale(1.08); }
-}
-
-@keyframes corner-sway-bl {
-  0% { transform: translate(0, 0) rotate(-6deg); }
-  100% { transform: translate(-6px, 10px) rotate(6deg) scale(1.06); }
-}
-
-@keyframes corner-sway-br {
-  0% { transform: translate(0, 0) rotate(6deg); }
-  100% { transform: translate(6px, 10px) rotate(-6deg) scale(1.06); }
-}
-
-@keyframes balloon-bob {
-  0% { transform: translateY(0) scale(0.96); }
-  100% { transform: translateY(-10px) scale(1.06); }
-}
-
-@keyframes perimeter-float-l {
-  0%, 100% { transform: translateY(0) rotate(-6deg); }
-  50% { transform: translateY(-18px) translateX(-6px) rotate(8deg) scale(1.1); }
-}
-
-@keyframes perimeter-float-r {
-  0%, 100% { transform: translateY(0) rotate(6deg); }
-  50% { transform: translateY(-18px) translateX(6px) rotate(-8deg) scale(1.1); }
-}
-
-@keyframes perimeter-float-t {
-  0%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
-  50% { transform: translateX(-50%) translateY(-14px) rotate(10deg) scale(1.12); }
+  background: transparent !important;
 }
 
 .celebration-card {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(145deg, #ffffff 0%, #fff0f5 60%, #ffe4ec 100%) !important;
-  border: 3px solid #ff9ebb !important;
-  box-shadow: 0 25px 70px rgba(255, 71, 109, 0.4) !important;
-  padding: 40px 30px 34px !important;
+  background: linear-gradient(145deg, #ffffff 0%, #fff0f5 55%, #ffe4ec 100%) !important;
+  border: 2.5px solid #ff9ebb !important;
+  box-shadow: 0 25px 70px rgba(255, 71, 109, 0.35) !important;
+  padding: 36px 28px 32px !important;
   text-align: center;
-  border-radius: 36px !important;
-  z-index: 5;
+  border-radius: 32px !important;
 }
 
 .celebration-content {
