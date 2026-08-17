@@ -493,8 +493,19 @@
     if (msgText) msgText.textContent = config.specialMessage;
   }
 
-  // --- Modals Setup (Message Editor) ---
+  // --- Modals Setup (Message Editor & 00:00 Celebration Modal) ---
   function initModals() {
+    // 00:00 Anniversary Celebration Modal
+    const celebrationModal = document.getElementById('anniversary-celebration-modal');
+    const closeCelebrationBtn = document.getElementById('close-celebration-btn');
+
+    if (closeCelebrationBtn && celebrationModal) {
+      closeCelebrationBtn.addEventListener('click', () => {
+        playPopSound();
+        celebrationModal.close();
+      });
+    }
+
     // Message Editor Modal
     const editMessageTrigger = document.getElementById('edit-message-trigger');
     const letterModal = document.getElementById('letter-modal');
@@ -552,14 +563,14 @@
 
     // Spawn Heart On Any Tap or Click
     window.addEventListener('click', (e) => {
-      if (['INPUT', 'TEXTAREA', 'BUTTON'].includes(e.target.tagName)) return;
+      if (['INPUT', 'TEXTAREA', 'BUTTON', 'DIALOG'].includes(e.target.tagName)) return;
       spawnTapHeart(e.clientX, e.clientY);
     });
 
     window.addEventListener('resize', resizeCanvas);
   }
 
-  // --- 23:15 Special: Heart Bubbles from Both Sides of Screen ---
+  // --- 00:00 Special: Bigger & Longer Heart Bubbles + Celebration Modal ---
   let specialTimeAnnounced = false;
   let bubbleInterval = null;
 
@@ -581,11 +592,11 @@
     const bubble = document.createElement('div');
     bubble.className = `side-heart-bubble from-${side}`;
 
-    // Randomize size, position, duration, and delay
-    const size = Math.floor(Math.random() * 24 + 42); // 42px to 66px
-    const duration = (Math.random() * 2.5 + 4.5).toFixed(2); // 4.5s to 7.0s
-    const offset = Math.floor(Math.random() * 80 + 15); // 15px to 95px from edge
-    const heartEmojis = ['💖', '💕', '💗', '💓', '💞', '🌸', '✨', '🎀', '🧸', '🐰', '❤️', '🧁', '💘'];
+    // Bigger size (65px to 110px) and longer duration (8.0s to 13.0s)
+    const size = Math.floor(Math.random() * 45 + 65); // 65px to 110px
+    const duration = (Math.random() * 5.0 + 8.0).toFixed(2); // 8s to 13s
+    const offset = Math.floor(Math.random() * 110 + 15); // 15px to 125px from edge
+    const heartEmojis = ['💖', '💕', '💗', '💓', '💞', '🌸', '✨', '🎀', '🧸', '🐰', '❤️', '🧁', '🎈', '💘'];
     const emoji = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
 
     bubble.style.width = `${size}px`;
@@ -600,7 +611,7 @@
 
     bubble.innerHTML = `
       <div class="bubble-shine"></div>
-      <span class="bubble-inner-heart" style="font-size: ${Math.floor(size * 0.48)}px;">${emoji}</span>
+      <span class="bubble-inner-heart" style="font-size: ${Math.floor(size * 0.50)}px;">${emoji}</span>
     `;
 
     // Click to pop bubble
@@ -619,25 +630,25 @@
       if (bubble.parentNode) {
         bubble.remove();
       }
-    }, parseFloat(duration) * 1000 + 200);
+    }, parseFloat(duration) * 1000 + 300);
   }
 
   function triggerSideHeartBubbles(durationMs = 60000) {
     if (bubbleInterval) clearInterval(bubbleInterval);
 
     // Initial burst from both sides
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 6; i++) {
       setTimeout(() => {
         spawnSideHeartBubble('left');
         spawnSideHeartBubble('right');
-      }, i * 200);
+      }, i * 180);
     }
 
     // Continuous stream
     bubbleInterval = setInterval(() => {
       spawnSideHeartBubble('left');
       spawnSideHeartBubble('right');
-    }, 450);
+    }, 400);
 
     setTimeout(() => {
       if (bubbleInterval) {
@@ -647,13 +658,13 @@
     }, durationMs);
   }
 
-  function showSpecialTimeToast(text = '⏰ 23:20 น. ช่วงเวลาแห่งความรัก หัวใจลอยรอบตัวเลยยย 💖✨') {
+  function showSpecialTimeToast(text = '🎉 00:00 น. ครบรอบ 2 ปี 5 เดือนแล้ววว เย่ๆๆๆ 💖🎈') {
     const existing = document.querySelector('.special-time-toast');
     if (existing) existing.remove();
 
     const toast = document.createElement('div');
     toast.className = 'special-time-toast';
-    toast.innerHTML = `<span>💖</span><span>${text}</span><span>🐰</span>`;
+    toast.innerHTML = `<span>🎈</span><span>${text}</span><span>🐰</span>`;
     document.body.appendChild(toast);
 
     setTimeout(() => {
@@ -661,7 +672,14 @@
       toast.style.opacity = '0';
       toast.style.transform = 'translateX(-50%) translateY(-30px)';
       setTimeout(() => toast.remove(), 600);
-    }, 6000);
+    }, 7000);
+  }
+
+  function openCelebrationPopup() {
+    const celebrationModal = document.getElementById('anniversary-celebration-modal');
+    if (celebrationModal && !celebrationModal.open) {
+      celebrationModal.showModal();
+    }
   }
 
   function checkSpecialTime() {
@@ -669,30 +687,39 @@
     const hours = now.getHours();
     const minutes = now.getMinutes();
 
-    if (hours === 23 && minutes === 20) {
-      // Spawn side bubbles continuously during 23:20
-      if (Math.random() < 0.65) {
+    // 00:00 Midnight Anniversary Special
+    if (hours === 0 && minutes === 0) {
+      // Spawn bigger and longer bubbles continuously during 00:00
+      if (Math.random() < 0.7) {
         spawnSideHeartBubble('left');
       }
-      if (Math.random() < 0.65) {
+      if (Math.random() < 0.7) {
         spawnSideHeartBubble('right');
       }
 
       if (!specialTimeAnnounced) {
         specialTimeAnnounced = true;
         playMagicChime();
+        openCelebrationPopup();
         showSpecialTimeToast();
         showerLoveConfetti();
       }
     } else {
-      if (specialTimeAnnounced && (hours !== 23 || minutes !== 20)) {
-        specialTimeAnnounced = false; // Reset for next day or time
+      if (specialTimeAnnounced && (hours !== 0 || minutes !== 0)) {
+        specialTimeAnnounced = false; // Reset for next time
       }
     }
   }
 
-  // Expose helper globally so user can test or trigger manually if desired
+  // Expose helpers globally so user can test or preview manually
   window.triggerHeartBubbles = triggerSideHeartBubbles;
+  window.testCelebration = () => {
+    openCelebrationPopup();
+    playMagicChime();
+    showSpecialTimeToast();
+    showerLoveConfetti();
+    triggerSideHeartBubbles(15000);
+  };
 
   // --- Application Bootstrapping ---
   function initApp() {
@@ -705,7 +732,7 @@
     initModals();
     initGlobalEvents();
 
-    // Start Live Clock and 23:20 Checker
+    // Start Live Clock and 00:00 Checker
     updateAnniversaryTimer();
     checkSpecialTime();
     setInterval(() => {
