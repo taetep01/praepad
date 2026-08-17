@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>สุขสันต์วันครบรอบ 2 ปี 5 เดือน! 💕 แพรภัทรคนโปรดของเค้า</title>
+  <meta name="description" content="เว็บบอกรักสุดน่ารักในวันครบรอบ 2 ปี 5 เดือน สำหรับแพรภัทร" />
+  
+  <!-- Google Fonts: Mitr, Prompt, Fredoka, Nunito for cute Thai typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Mitr:wght@300;400;500;600&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Canvas for Floating Sparkles & Hearts Background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Ambient Audio Floating Controller & Top Navigation -->
+  <header class="top-nav">
+    <div class="nav-brand">
+      <span class="heart-pulse">💖</span>
+      <span class="brand-text">2 ปี 5 เดือนแล้วน้า</span>
+    </div>
+    <div class="nav-actions">
+      <button id="music-btn" class="nav-btn" title="เปิด/ปิด เสียงเพลง Fish in the Pool" aria-label="เปิดเสียงเพลง">
+        <span class="icon">🎵</span>
+        <span class="btn-text">เพลง: <b id="music-status">ปิด</b></span>
+      </button>
+      <button id="confetti-btn" class="nav-btn love-burst-btn" title="โปรยความรัก!" aria-label="โปรยความรัก">
+        <span>🎉 โปรยความรัก!</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="hero-badge">
+        <span class="badge-sparkle">✨</span>
+        <span class="badge-text">ครบรอบ 29 เดือนของเรา</span>
+        <span class="badge-sparkle">✨</span>
+      </div>
+
+      <h1 class="hero-title">
+        สุขสันต์วันครบรอบ <span class="highlight-pink">2 ปี 5 เดือน</span>, <br />
+        <span class="sweetheart-name" id="display-gf-name">แพรภัทร</span>! 💕
+      </h1>
+
+      <p class="hero-subtitle" id="display-subtitle">
+        "ทุกๆ วันที่มีเธออยู่ด้วยคือของขวัญที่ดีที่สุด ขอบคุณสำหรับรอยยิ้ม อ้อมกอด และความน่ารักที่มีให้เค้าเสมอน้า" 🌸
+      </p>
+
+      <!-- Live Milestone Counter Card -->
+      <div class="counter-card" id="counter-section">
+        <div class="counter-header">
+          <span class="counter-icon">⏰</span>
+          <h3>เรารักกันมาเป็นเวลา</h3>
+          <span class="live-indicator"><span class="pulse-dot"></span> กำลังนับต่อไป</span>
+        </div>
+
+        <div class="timer-grid">
+          <div class="timer-box">
+            <span class="timer-num" id="years-num">2</span>
+            <span class="timer-label">ปี</span>
+          </div>
+          <div class="timer-box">
+            <span class="timer-num" id="months-num">5</span>
+            <span class="timer-label">เดือน</span>
+          </div>
+          <div class="timer-box">
+            <span class="timer-num" id="days-num">00</span>
+            <span class="timer-label">วัน</span>
+          </div>
+          <div class="timer-box">
+            <span class="timer-num" id="hours-num">00</span>
+            <span class="timer-label">ชั่วโมง</span>
+          </div>
+          <div class="timer-box">
+            <span class="timer-num" id="minutes-num">00</span>
+            <span class="timer-label">นาที</span>
+          </div>
+          <div class="timer-box highlight-box">
+            <span class="timer-num" id="seconds-num">00</span>
+            <span class="timer-label">วินาที</span>
+          </div>
+        </div>
+
+        <!-- Sweet Total Stats -->
+        <div class="total-stats-row">
+          <div class="stat-item">
+            <span class="stat-icon">📅</span>
+            <span class="stat-value" id="total-days-num">880+ วัน</span>
+            <span class="stat-name">วันแห่งความสุขของเรา</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">💓</span>
+            <span class="stat-value" id="heartbeats-num">80M+</span>
+            <span class="stat-name">จังหวะหัวใจที่เต้นเพื่อเธอ</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">🥞</span>
+            <span class="stat-value" id="sweet-moments-num">∞</span>
+            <span class="stat-name">รักมากขึ้นทุกๆ วัน</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Special Message Box Section -->
+    <section class="content-section message-section" id="message-section">
+      <div class="section-title-wrap">
+        <h2 class="section-heading">💌 ข้อความพิเศษถึงแพรภัทร</h2>
+        <p class="section-desc">ความในใจสุดพิเศษในวันครบรอบ 2 ปี 5 เดือน 🌸</p>
+      </div>
+
+      <div class="special-message-card">
+        <!-- Cute decorative stickers -->
+        <div class="message-card-decor top-left">🐾</div>
+        <div class="message-card-decor top-right">🌸</div>
+        <div class="message-card-decor bottom-left">🐱</div>
+        <div class="message-card-decor bottom-right">💖</div>
+
+        <div class="message-badge-tag">
+          <span class="tag-icon">🎀</span>
+          <span>จากใจเค้าถึงเธอ</span>
+          <span class="tag-icon">🎀</span>
+        </div>
+
+        <div class="message-text-content" id="special-message-text">
+          แพรภัทรค้าบวานนนี้ก็ผ่านมา 2 ปี 5 เดือนแล้วน้ารอบบนี้ทำเว็ปห้ายยยวานนี้ร้ากเทอมากเลยน้าเบ้บบบมาพูดน่าร้ากกานเย้อออเค้าร้ากแพรมากเลยน้าวแล้วก็จาร้ากให้มากขึ้นอีกเยยยเรสมาให้ความร้ากกานเย้อออยากเจอกานให้เย้อเยยยคิดถึงงที่สุดน้าาา 🐱💖
+        </div>
+
+        <div class="message-signature-row">
+          <div class="signature-date">ครบรอบ 2 ปี 5 เดือน ✨</div>
+          <div class="signature-sender" id="message-sender-name">รักแพรที่สุดในโลก 💕</div>
+        </div>
+
+        <div class="message-action-row">
+          <button class="cute-btn" id="copy-msg-btn">
+            <span>📋 คัดลอกข้อความ</span>
+          </button>
+          <button class="edit-letter-btn" id="edit-message-trigger">
+            ✏️ แก้ไขข้อความ
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jar of Reasons Why I Love You -->
+    <section class="content-section jar-section" id="jar-section">
+      <div class="section-title-wrap">
+        <span class="section-badge">ความในใจน่ารักๆ</span>
+        <h2 class="section-heading">✨ โหลรวมเหตุผลที่เค้ารักแพร</h2>
+      </div>
+
+      <div class="jar-interactive-area">
+        <div class="jar-wrapper" id="love-jar">
+          <div class="jar-lid">
+            <div class="jar-lid-ribbon">🎀</div>
+          </div>
+          <div class="jar-glass">
+            <div class="jar-candies">
+              <span class="candy c1">💖</span>
+              <span class="candy c2">🌸</span>
+              <span class="candy c3">🍓</span>
+              <span class="candy c4">✨</span>
+              <span class="candy c5">💕</span>
+              <span class="candy c6">🧁</span>
+              <span class="candy c7">🎀</span>
+              <span class="candy c8">🧸</span>
+            </div>
+            <div class="jar-label">
+              <span>โหลบอกรัก 🍯</span>
+              <small>แตะเค้าสิ!</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="jar-display-card" id="reason-display-card">
+          <div class="reason-badge">เหตุผลข้อที่ #<span id="reason-number">1</span></div>
+          <p class="reason-text" id="reason-text">"เค้ารักกระต่ายน้อยที่สุดดในโลกกก"</p>
+          <div class="reason-action">
+            <button class="cute-btn" id="next-reason-btn">
+              <span>💖 แตะเพื่ออ่านเหตุผลถัดไป!</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Journey / Polaroid Photo Scrapbook -->
+    <section class="content-section gallery-section" id="gallery-section">
+      <div class="section-title-wrap">
+        <span class="section-badge">ความทรงจำของเรา</span>
+        <h2 class="section-heading">📸 สมุดภาพความทรงจำสุดหวาน</h2>
+      </div>
+
+      <div class="scrapbook-grid" id="scrapbook-container">
+        <!-- Photo Card 1 -->
+        <div class="polaroid-card" data-card-id="1">
+          <div class="washi-tape tape-pink"></div>
+          <div class="polaroid-img-wrapper" id="photo-frame-1">
+            <img src="images/photo1.jpg" alt="รูปความทรงจำ 1" class="polaroid-img" id="img-slot-1" />
+          </div>
+        </div>
+
+        <!-- Photo Card 2 -->
+        <div class="polaroid-card rotate-right" data-card-id="2">
+          <div class="washi-tape tape-yellow"></div>
+          <div class="polaroid-img-wrapper" id="photo-frame-2">
+            <img src="images/photo2.jpg" alt="รูปความทรงจำ 2" class="polaroid-img" id="img-slot-2" />
+          </div>
+        </div>
+
+        <!-- Photo Card 3 -->
+        <div class="polaroid-card rotate-left" data-card-id="3">
+          <div class="washi-tape tape-blue"></div>
+          <div class="polaroid-img-wrapper" id="photo-frame-3">
+            <img src="images/photo3.jpg" alt="รูปความทรงจำ 3" class="polaroid-img" id="img-slot-3" />
+          </div>
+        </div>
+
+        <!-- Photo Card 4 -->
+        <div class="polaroid-card" data-card-id="4">
+          <div class="washi-tape tape-purple"></div>
+          <div class="polaroid-img-wrapper" id="photo-frame-4">
+            <img src="images/photo4.jpg" alt="รูปความทรงจำ 4" class="polaroid-img" id="img-slot-4" />
+          </div>
+        </div>
+
+        <!-- Photo Card 5 -->
+        <div class="polaroid-card rotate-right" data-card-id="5">
+          <div class="washi-tape tape-pink"></div>
+          <div class="polaroid-img-wrapper" id="photo-frame-5">
+            <img src="images/photo5.jpg" alt="รูปความทรงจำ 5" class="polaroid-img" id="img-slot-5" />
+          </div>
+        </div>
+
+        <!-- Photo Card 6 -->
+        <div class="polaroid-card rotate-left" data-card-id="6">
+          <div class="washi-tape tape-yellow"></div>
+          <div class="polaroid-img-wrapper" id="photo-frame-6">
+            <img src="images/photo6.jpg" alt="รูปความทรงจำ 6" class="polaroid-img" id="img-slot-6" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Couple Mini Quiz -->
+    <section class="content-section quiz-section" id="quiz-section">
+      <div class="section-title-wrap">
+        <span class="section-badge">เกมทายใจน่ารักๆ</span>
+        <h2 class="section-heading">🧸 ควิซวัดระดับความรักของเรา</h2>
+        <p class="section-desc">มาตอบคำถามน่ารักๆ กันหน่อยน้า!</p>
+      </div>
+
+      <div class="quiz-card" id="quiz-box">
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="quiz-progress"></div>
+        </div>
+        
+        <div class="quiz-body" id="quiz-content">
+          <div class="quiz-question-num" id="quiz-step-label">คำถามที่ 1 จาก 3</div>
+          <h3 class="quiz-question-text" id="quiz-question">เค้ารักแพรมากแค่ไหน?</h3>
+          <div class="quiz-options" id="quiz-options-container">
+            <!-- Options dynamically rendered by JS -->
+          </div>
+        </div>
+
+        <div class="quiz-reaction" id="quiz-reaction-msg"></div>
+      </div>
+    </section>
+
+    <!-- Cute Footer -->
+    <footer class="love-footer">
+      <div class="footer-heart-anim">
+        <span>🌸</span>
+        <span class="big-heart">💖</span>
+        <span>🌸</span>
+      </div>
+      <p class="footer-text">
+        สร้างขึ้นด้วยความรักทั้งหมดที่มีเพื่อ <span class="footer-gf-name" id="footer-gf-name">แพรภัทร</span> 🌸
+      </p>
+      <p class="footer-sub">2 ปี 5 เดือน และจะอยู่เคียงข้างกันตลอดไปเลยน้า! 🥂✨</p>
+      <button class="back-to-top-btn" id="back-to-top">↑ กลับขึ้นด้านบน</button>
+    </footer>
+
+  </main>
+
+  <!-- Interactive Tap Sparkle FX Container -->
+  <div id="tap-effects-container"></div>
+
+  <!-- Edit Message Modal -->
+  <dialog id="letter-modal" class="cute-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>✏️ แก้ไขข้อความพิเศษ</h3>
+        <button class="modal-close-btn" id="close-letter-btn" aria-label="ปิด">✕</button>
+      </div>
+      <form id="letter-form" class="modal-form">
+        <div class="form-group">
+          <label for="input-letter-body">ข้อความพิเศษ:</label>
+          <textarea id="input-letter-body" rows="6" placeholder="เขียนความในใจตรงนี้..." required></textarea>
+        </div>
+
+        <div class="modal-buttons">
+          <button type="submit" class="cute-btn btn-primary">บันทึกข้อความ 💌</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Main JavaScript Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
