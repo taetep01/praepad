@@ -545,6 +545,16 @@
 
   // --- Global Event Listeners ---
   function initGlobalEvents() {
+    // Test Celebration Button
+    const testCelebrationBtn = document.getElementById('test-celebration-btn');
+    if (testCelebrationBtn) {
+      testCelebrationBtn.addEventListener('click', () => {
+        if (typeof window.testCelebration === 'function') {
+          window.testCelebration();
+        }
+      });
+    }
+
     // Music Button
     const musicBtn = document.getElementById('music-btn');
     if (musicBtn) musicBtn.addEventListener('click', toggleMusic);

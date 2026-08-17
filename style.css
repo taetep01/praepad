@@ -160,6 +160,19 @@ body {
   box-shadow: 0 6px 18px rgba(255, 101, 132, 0.35);
 }
 
+.nav-btn.celebration-preview-btn {
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 3px 12px rgba(255, 117, 140, 0.3);
+}
+
+.nav-btn.celebration-preview-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: linear-gradient(135deg, #ff5376, #ff758c);
+  box-shadow: 0 6px 18px rgba(255, 83, 118, 0.45);
+}
+
 .nav-btn.icon-only {
   padding: 7px 11px;
   font-size: 1.05rem;
