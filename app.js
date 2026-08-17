@@ -559,6 +559,141 @@
     window.addEventListener('resize', resizeCanvas);
   }
 
+  // --- 23:15 Special: Heart Bubbles from Both Sides of Screen ---
+  let specialTimeAnnounced = false;
+  let bubbleInterval = null;
+
+  function createBubblePopEffect(x, y) {
+    const container = document.getElementById('side-heart-bubbles-container') || document.body;
+    const pop = document.createElement('div');
+    pop.className = 'bubble-pop-burst';
+    pop.style.left = `${x}px`;
+    pop.style.top = `${y}px`;
+    pop.textContent = '✨💖✨';
+    container.appendChild(pop);
+    setTimeout(() => pop.remove(), 500);
+  }
+
+  function spawnSideHeartBubble(side = 'left') {
+    const container = document.getElementById('side-heart-bubbles-container');
+    if (!container) return;
+
+    const bubble = document.createElement('div');
+    bubble.className = `side-heart-bubble from-${side}`;
+
+    // Randomize size, position, duration, and delay
+    const size = Math.floor(Math.random() * 24 + 42); // 42px to 66px
+    const duration = (Math.random() * 2.5 + 4.5).toFixed(2); // 4.5s to 7.0s
+    const offset = Math.floor(Math.random() * 80 + 15); // 15px to 95px from edge
+    const heartEmojis = ['💖', '💕', '💗', '💓', '💞', '🌸', '✨', '🎀', '🧸', '🐰', '❤️', '🧁', '💘'];
+    const emoji = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+
+    bubble.style.width = `${size}px`;
+    bubble.style.height = `${size}px`;
+    bubble.style.animationDuration = `${duration}s`;
+
+    if (side === 'left') {
+      bubble.style.left = `${offset}px`;
+    } else {
+      bubble.style.right = `${offset}px`;
+    }
+
+    bubble.innerHTML = `
+      <div class="bubble-shine"></div>
+      <span class="bubble-inner-heart" style="font-size: ${Math.floor(size * 0.48)}px;">${emoji}</span>
+    `;
+
+    // Click to pop bubble
+    bubble.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playPopSound();
+      const rect = bubble.getBoundingClientRect();
+      createBubblePopEffect(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      bubble.remove();
+    });
+
+    container.appendChild(bubble);
+
+    // Auto remove after animation completes
+    setTimeout(() => {
+      if (bubble.parentNode) {
+        bubble.remove();
+      }
+    }, parseFloat(duration) * 1000 + 200);
+  }
+
+  function triggerSideHeartBubbles(durationMs = 60000) {
+    if (bubbleInterval) clearInterval(bubbleInterval);
+
+    // Initial burst from both sides
+    for (let i = 0; i < 4; i++) {
+      setTimeout(() => {
+        spawnSideHeartBubble('left');
+        spawnSideHeartBubble('right');
+      }, i * 200);
+    }
+
+    // Continuous stream
+    bubbleInterval = setInterval(() => {
+      spawnSideHeartBubble('left');
+      spawnSideHeartBubble('right');
+    }, 450);
+
+    setTimeout(() => {
+      if (bubbleInterval) {
+        clearInterval(bubbleInterval);
+        bubbleInterval = null;
+      }
+    }, durationMs);
+  }
+
+  function showSpecialTimeToast(text = '⏰ 23:20 น. ช่วงเวลาแห่งความรัก หัวใจลอยรอบตัวเลยยย 💖✨') {
+    const existing = document.querySelector('.special-time-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.className = 'special-time-toast';
+    toast.innerHTML = `<span>💖</span><span>${text}</span><span>🐰</span>`;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) translateY(-30px)';
+      setTimeout(() => toast.remove(), 600);
+    }, 6000);
+  }
+
+  function checkSpecialTime() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+    if (hours === 23 && minutes === 20) {
+      // Spawn side bubbles continuously during 23:20
+      if (Math.random() < 0.65) {
+        spawnSideHeartBubble('left');
+      }
+      if (Math.random() < 0.65) {
+        spawnSideHeartBubble('right');
+      }
+
+      if (!specialTimeAnnounced) {
+        specialTimeAnnounced = true;
+        playMagicChime();
+        showSpecialTimeToast();
+        showerLoveConfetti();
+      }
+    } else {
+      if (specialTimeAnnounced && (hours !== 23 || minutes !== 20)) {
+        specialTimeAnnounced = false; // Reset for next day or time
+      }
+    }
+  }
+
+  // Expose helper globally so user can test or trigger manually if desired
+  window.triggerHeartBubbles = triggerSideHeartBubbles;
+
   // --- Application Bootstrapping ---
   function initApp() {
     applyConfigToDOM();
@@ -570,9 +705,13 @@
     initModals();
     initGlobalEvents();
 
-    // Start Live Clock
+    // Start Live Clock and 23:20 Checker
     updateAnniversaryTimer();
-    setInterval(updateAnniversaryTimer, 1000);
+    checkSpecialTime();
+    setInterval(() => {
+      updateAnniversaryTimer();
+      checkSpecialTime();
+    }, 1000);
   }
 
   // Run on DOM ready
