@@ -423,7 +423,7 @@
 
     if (!questionData) {
       if (stepLabel) stepLabel.textContent = "ยินดีด้วยนะค้าบ! 🎉";
-      if (questionText) questionText.textContent = "คะแนนความรัก 100% เต็ม! แพรคือแฟนที่น่ารักที่สุดในโลก! 💖";
+      if (questionText) questionText.textContent = "คะแนนความรัก 100% เต็ม! แพรคือกระต่ายน้อยที่น่ารักที่สุดในโลก! 💖";
       if (optionsContainer) {
         optionsContainer.innerHTML = `
           <div style="text-align:center; padding: 20px 0;">
