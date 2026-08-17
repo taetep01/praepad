@@ -580,101 +580,61 @@
     window.addEventListener('resize', resizeCanvas);
   }
 
-  // --- 00:00 Special: Bigger & Longer Heart Bubbles + Celebration Modal ---
+  // --- 00:00 Special: Side Love Confetti Shower & Celebration Modal ---
   let specialTimeAnnounced = false;
-  let bubbleInterval = null;
+  let sideConfettiInterval = null;
 
-  function createBubblePopEffect(x, y) {
-    const container = document.getElementById('side-heart-bubbles-container') || document.body;
-    const pop = document.createElement('div');
-    pop.className = 'bubble-pop-burst';
-    pop.style.left = `${x}px`;
-    pop.style.top = `${y}px`;
-    pop.textContent = '✨💖✨';
-    container.appendChild(pop);
-    setTimeout(() => pop.remove(), 500);
-  }
-
-  function spawnSideHeartBubble(side = 'left') {
-    const container = document.getElementById('side-heart-bubbles-container');
-    if (!container) return;
-
-    const bubble = document.createElement('div');
-    bubble.className = `side-heart-bubble from-${side}`;
-
-    // Bigger size (65px to 110px) and longer duration (8.0s to 13.0s)
-    const size = Math.floor(Math.random() * 45 + 65); // 65px to 110px
-    const duration = (Math.random() * 5.0 + 8.0).toFixed(2); // 8s to 13s
-    const offset = Math.floor(Math.random() * 110 + 15); // 15px to 125px from edge
-    const heartEmojis = ['💖', '💕', '💗', '💓', '💞', '🌸', '✨', '🎀', '🧸', '🐰', '❤️', '🧁', '🎈', '💘'];
-    const emoji = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-
-    bubble.style.width = `${size}px`;
-    bubble.style.height = `${size}px`;
-    bubble.style.animationDuration = `${duration}s`;
-
-    if (side === 'left') {
-      bubble.style.left = `${offset}px`;
-    } else {
-      bubble.style.right = `${offset}px`;
-    }
-
-    bubble.innerHTML = `
-      <div class="bubble-shine"></div>
-      <span class="bubble-inner-heart" style="font-size: ${Math.floor(size * 0.50)}px;">${emoji}</span>
-    `;
-
-    // Click to pop bubble
-    bubble.addEventListener('click', (e) => {
-      e.stopPropagation();
-      playPopSound();
-      const rect = bubble.getBoundingClientRect();
-      createBubblePopEffect(rect.left + rect.width / 2, rect.top + rect.height / 2);
-      bubble.remove();
-    });
-
-    container.appendChild(bubble);
-
-    // Auto remove after animation completes
-    setTimeout(() => {
-      if (bubble.parentNode) {
-        bubble.remove();
-      }
-    }, parseFloat(duration) * 1000 + 300);
-  }
-
-  function triggerSideHeartBubbles(durationMs = 60000) {
-    if (bubbleInterval) clearInterval(bubbleInterval);
-
-    // Initial burst from both sides
-    for (let i = 0; i < 6; i++) {
+  // Function to shower love confetti specifically from both sides of the screen
+  function showerSideLoveConfetti(count = 35) {
+    for (let i = 0; i < count; i++) {
       setTimeout(() => {
-        spawnSideHeartBubble('left');
-        spawnSideHeartBubble('right');
-      }, i * 180);
-    }
+        // Left side
+        const leftX = Math.random() * 90 + 15;
+        const leftY = Math.random() * (window.innerHeight * 0.75) + (window.innerHeight * 0.15);
+        spawnTapHeart(leftX, leftY);
 
-    // Continuous stream
-    bubbleInterval = setInterval(() => {
-      spawnSideHeartBubble('left');
-      spawnSideHeartBubble('right');
-    }, 400);
+        // Right side
+        const rightX = window.innerWidth - (Math.random() * 90 + 15);
+        const rightY = Math.random() * (window.innerHeight * 0.75) + (window.innerHeight * 0.15);
+        spawnTapHeart(rightX, rightY);
+      }, i * 45);
+    }
+  }
+
+  function triggerContinuousSideShower(durationMs = 60000) {
+    if (sideConfettiInterval) clearInterval(sideConfettiInterval);
+    
+    // Initial burst
+    showerSideLoveConfetti(25);
+
+    // Continuous side stream
+    sideConfettiInterval = setInterval(() => {
+      // Left side spawn
+      const leftX = Math.random() * 90 + 15;
+      const leftY = Math.random() * (window.innerHeight * 0.75) + (window.innerHeight * 0.15);
+      spawnTapHeart(leftX, leftY);
+
+      // Right side spawn
+      const rightX = window.innerWidth - (Math.random() * 90 + 15);
+      const rightY = Math.random() * (window.innerHeight * 0.75) + (window.innerHeight * 0.15);
+      spawnTapHeart(rightX, rightY);
+    }, 180);
 
     setTimeout(() => {
-      if (bubbleInterval) {
-        clearInterval(bubbleInterval);
-        bubbleInterval = null;
+      if (sideConfettiInterval) {
+        clearInterval(sideConfettiInterval);
+        sideConfettiInterval = null;
       }
     }, durationMs);
   }
 
-  function showSpecialTimeToast(text = '🎉 00:00 น. ครบรอบ 2 ปี 5 เดือนแล้ววว เย่ๆๆๆ 💖🎈') {
+  function showSpecialTimeToast(text = '🎉 00:00 น. ครบรอบ 2 ปี 5 เดือนแล้ววว เย่ๆๆๆ 💖✨') {
     const existing = document.querySelector('.special-time-toast');
     if (existing) existing.remove();
 
     const toast = document.createElement('div');
     toast.className = 'special-time-toast';
-    toast.innerHTML = `<span>🎈</span><span>${text}</span><span>🐰</span>`;
+    toast.innerHTML = `<span>💖</span><span>${text}</span><span>🌸</span>`;
     document.body.appendChild(toast);
 
     setTimeout(() => {
@@ -682,7 +642,7 @@
       toast.style.opacity = '0';
       toast.style.transform = 'translateX(-50%) translateY(-30px)';
       setTimeout(() => toast.remove(), 600);
-    }, 7000);
+    }, 6000);
   }
 
   function openCelebrationPopup() {
@@ -699,36 +659,27 @@
 
     // 00:00 Midnight Anniversary Special
     if (hours === 0 && minutes === 0) {
-      // Spawn bigger and longer bubbles continuously during 00:00
-      if (Math.random() < 0.7) {
-        spawnSideHeartBubble('left');
-      }
-      if (Math.random() < 0.7) {
-        spawnSideHeartBubble('right');
-      }
-
       if (!specialTimeAnnounced) {
         specialTimeAnnounced = true;
         playMagicChime();
         openCelebrationPopup();
         showSpecialTimeToast();
-        showerLoveConfetti();
+        triggerContinuousSideShower(60000);
       }
     } else {
       if (specialTimeAnnounced && (hours !== 0 || minutes !== 0)) {
-        specialTimeAnnounced = false; // Reset for next time
+        specialTimeAnnounced = false; // Reset for next day
       }
     }
   }
 
   // Expose helpers globally so user can test or preview manually
-  window.triggerHeartBubbles = triggerSideHeartBubbles;
+  window.triggerSideConfetti = triggerContinuousSideShower;
   window.testCelebration = () => {
     openCelebrationPopup();
     playMagicChime();
     showSpecialTimeToast();
-    showerLoveConfetti();
-    triggerSideHeartBubbles(15000);
+    triggerContinuousSideShower(12000);
   };
 
   // --- Application Bootstrapping ---
