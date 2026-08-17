@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "2year5months-anniversary",
   "version": "1.0.0",
   "description": "2 Years 5 Months Anniversary Website",
@@ -6,7 +6,13 @@
   "scripts": {
     "start": "node server.js"
   },
-  "keywords": ["anniversary", "love"],
+  "keywords": [
+    "anniversary",
+    "love"
+  ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }
